@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.check.mapperInterface.CheckFlowMapper" >
+  <resultMap id="BaseResultMap" type="com.check.entities.CheckFlow" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_appeal_id" property="userAppealId" jdbcType="BIGINT" />
+    <result column="check_type" property="checkType" jdbcType="INTEGER" />
+    <result column="check_person" property="checkPerson" jdbcType="VARCHAR" />
+    <result column="resource_type" property="resourceType" jdbcType="INTEGER" />
+    <result column="resource_url" property="resourceUrl" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.check.entities.CheckFlowWithBLOBs" extends="BaseResultMap" >
+    <result column="label" property="label" jdbcType="LONGVARCHAR" />
+    <result column="reason" property="reason" jdbcType="LONGVARCHAR" />
+    <result column="trace" property="trace" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_appeal_id, check_type, check_person, resource_type, resource_url, status, 
+    create_time, update_time, deleted
+  </sql>
+  <sql id="Blob_Column_List" >
+    label, reason, trace
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.check.entities.CheckFlowExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from check_flow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.check.entities.CheckFlowExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from check_flow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from check_flow
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from check_flow
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.check.entities.CheckFlowExample" >
+    delete from check_flow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.check.entities.CheckFlowWithBLOBs" >
+    insert into check_flow (id, user_appeal_id, check_type, 
+      check_person, resource_type, resource_url, 
+      status, create_time, update_time, 
+      deleted, label, reason, 
+      trace)
+    values (#{id,jdbcType=BIGINT}, #{userAppealId,jdbcType=BIGINT}, #{checkType,jdbcType=INTEGER}, 
+      #{checkPerson,jdbcType=VARCHAR}, #{resourceType,jdbcType=INTEGER}, #{resourceUrl,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=INTEGER}, #{label,jdbcType=LONGVARCHAR}, #{reason,jdbcType=LONGVARCHAR}, 
+      #{trace,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.check.entities.CheckFlowWithBLOBs" >
+    insert into check_flow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userAppealId != null" >
+        user_appeal_id,
+      </if>
+      <if test="checkType != null" >
+        check_type,
+      </if>
+      <if test="checkPerson != null" >
+        check_person,
+      </if>
+      <if test="resourceType != null" >
+        resource_type,
+      </if>
+      <if test="resourceUrl != null" >
+        resource_url,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="label != null" >
+        label,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="trace != null" >
+        trace,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userAppealId != null" >
+        #{userAppealId,jdbcType=BIGINT},
+      </if>
+      <if test="checkType != null" >
+        #{checkType,jdbcType=INTEGER},
+      </if>
+      <if test="checkPerson != null" >
+        #{checkPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null" >
+        #{resourceType,jdbcType=INTEGER},
+      </if>
+      <if test="resourceUrl != null" >
+        #{resourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="trace != null" >
+        #{trace,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.check.entities.CheckFlowExample" resultType="java.lang.Integer" >
+    select count(*) from check_flow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update check_flow
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userAppealId != null" >
+        user_appeal_id = #{record.userAppealId,jdbcType=BIGINT},
+      </if>
+      <if test="record.checkType != null" >
+        check_type = #{record.checkType,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkPerson != null" >
+        check_person = #{record.checkPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceType != null" >
+        resource_type = #{record.resourceType,jdbcType=INTEGER},
+      </if>
+      <if test="record.resourceUrl != null" >
+        resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null" >
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.label != null" >
+        label = #{record.label,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.trace != null" >
+        trace = #{record.trace,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update check_flow
+    set id = #{record.id,jdbcType=BIGINT},
+      user_appeal_id = #{record.userAppealId,jdbcType=BIGINT},
+      check_type = #{record.checkType,jdbcType=INTEGER},
+      check_person = #{record.checkPerson,jdbcType=VARCHAR},
+      resource_type = #{record.resourceType,jdbcType=INTEGER},
+      resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=INTEGER},
+      label = #{record.label,jdbcType=LONGVARCHAR},
+      reason = #{record.reason,jdbcType=LONGVARCHAR},
+      trace = #{record.trace,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update check_flow
+    set id = #{record.id,jdbcType=BIGINT},
+      user_appeal_id = #{record.userAppealId,jdbcType=BIGINT},
+      check_type = #{record.checkType,jdbcType=INTEGER},
+      check_person = #{record.checkPerson,jdbcType=VARCHAR},
+      resource_type = #{record.resourceType,jdbcType=INTEGER},
+      resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.check.entities.CheckFlowWithBLOBs" >
+    update check_flow
+    <set >
+      <if test="userAppealId != null" >
+        user_appeal_id = #{userAppealId,jdbcType=BIGINT},
+      </if>
+      <if test="checkType != null" >
+        check_type = #{checkType,jdbcType=INTEGER},
+      </if>
+      <if test="checkPerson != null" >
+        check_person = #{checkPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null" >
+        resource_type = #{resourceType,jdbcType=INTEGER},
+      </if>
+      <if test="resourceUrl != null" >
+        resource_url = #{resourceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="label != null" >
+        label = #{label,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="trace != null" >
+        trace = #{trace,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.check.entities.CheckFlowWithBLOBs" >
+    update check_flow
+    set user_appeal_id = #{userAppealId,jdbcType=BIGINT},
+      check_type = #{checkType,jdbcType=INTEGER},
+      check_person = #{checkPerson,jdbcType=VARCHAR},
+      resource_type = #{resourceType,jdbcType=INTEGER},
+      resource_url = #{resourceUrl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER},
+      label = #{label,jdbcType=LONGVARCHAR},
+      reason = #{reason,jdbcType=LONGVARCHAR},
+      trace = #{trace,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.check.entities.CheckFlow" >
+    update check_flow
+    set user_appeal_id = #{userAppealId,jdbcType=BIGINT},
+      check_type = #{checkType,jdbcType=INTEGER},
+      check_person = #{checkPerson,jdbcType=VARCHAR},
+      resource_type = #{resourceType,jdbcType=INTEGER},
+      resource_url = #{resourceUrl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

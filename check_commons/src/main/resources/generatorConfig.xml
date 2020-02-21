@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 零 、注意，标签上下之间是有严格顺序的 -->
+
+
+	<!-- 一、 报错Exception getting JDBC Driver 解决方法 -->
+	<!-- 抛出的异常主要是由于找不到数据库连接的驱动包 ，所以在generatorConfig.xml中加入数据库驱动包的绝对路径即可 -->
+	<!--以后使用根据此时maven仓库配置对应修改-->
+	<classPathEntry location="/Users/wangfei/workspace/repository/maven/mysql/mysql-connector-java/5.1.37/mysql-connector-java-5.1.37.jar" />
+
+
+
+	<!--二 、逐项配置-->
+	<!--1、简单版还是豪华版      配置targetRuntime属性  MyBatis3Simple：简单版    MyBatis3：豪华版（带动态标签） -->
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+
+		<!--2、注释-->
+        <!-- 是否取消自动生成的注释     true=取消，取消掉，看着很清爽-->
+		<!-- 是否生成注释时间戳 		true=取消，取消掉，看着很清爽 -->  
+		<commentGenerator>  
+            <property name="suppressAllComments" value="true" />  
+            <property name="suppressDate" value="true" />  
+        </commentGenerator> 
+
+
+		<!--3、数据库连接信息-->
+        <!--&lt;!&ndash;舆情库&ndash;&gt;-->
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+			<!--connectionURL="jdbc:mysql://rm-2ze2mtb6zz120u424uo.mysql.rds.aliyuncs.com:3306/yuqing_news" userId="jindi" password="Jindi4News">-->
+		<!--</jdbcConnection>-->
+        <!--&lt;!&ndash;商标库&ndash;&gt;-->
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+			<!--connectionURL="jdbc:mysql://rm-2ze8769tt4l6y6u01o.mysql.rds.aliyuncs.com:3306/ip" userId="jindi" password="J1ndiStd">-->
+		<!--</jdbcConnection>-->
+        <!--定时监控项目库-->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+            <!--connectionURL="jdbc:mysql://rm-2zetq2ep9zffn8z374o.mysql.rds.aliyuncs.com:3306/warn_test" userId="jindi" password="J1ndiStd">-->
+        <!--</jdbcConnection>-->
+        <!--新定时监控项目库 - api-diff库-->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+        <!--connectionURL="jdbc:mysql://rm-2zejaufe1dv1bpv43oo.mysql.rds.aliyuncs.com:3306/api-diff" userId="jindi" password="jindi4Sprcld">-->
+        <!--</jdbcConnection>-->
+        <!--新定时监控项目库 - daatx-web库-->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+                        <!--connectionURL="jdbc:mysql://rm-2zejaufe1dv1bpv43oo.mysql.rds.aliyuncs.com:3306/datax-web" userId="jindi" password="jindi4Sprcld">-->
+        <!--</jdbcConnection>-->
+        <!--新版数据库 - open_src_dblog库-->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+                        <!--connectionURL="jdbc:mysql://rm-2zez584oxw302xvph.mysql.rds.aliyuncs.com:3306/open_src_dblog" userId="jindi" password="J1ndiNewdatabase">-->
+        <!--</jdbcConnection>-->
+        <!--专业版实例 用户申诉库-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://rm-2ze8769tt4l6y6u01o.mysql.rds.aliyuncs.com:3306/std-appeal-online" userId="jindi" password="J1ndiStd">
+        </jdbcConnection>
+
+		<!--4、类型解析，不用动 默认false，把JDBC DECIMAL和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL和 NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+
+		<!-- 5、生成策略-实体类 -->
+		<javaModelGenerator targetPackage="com.check.entities" targetProject="src/main/java">
+			<property name="enableSubPackages" value="false" /><!--默认false，直接使用targetPackage属性生成子包，否则MBG根据catalog和schema生成子包 -->
+			<property name="trimStrings" value="true" /><!-- 从数据库返回的值被清理前后的空格 -->
+		</javaModelGenerator>
+
+
+		<!-- 6、生成策略-Mapper映射文件-->
+		<sqlMapGenerator targetPackage="com.check.mapperFile" targetProject="src/main/java">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+
+		<!--7、生成策略-Mapper接口-->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.check.mapperInterface" targetProject="src/main/java">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+
+
+		<!--8、设置生成对应表及类名-->
+		<!--
+			tableName：表名
+			domainObjectName：实体类类名
+			逆向工程无法生成关联关系,只能生成单表操作
+			可以同时配置多个table标签一起运行，可同时生成多组
+		-->
+ 		<!--<table tableName="sys_organization" domainObjectName="Sys_organization"></table>		 -->
+ 		<!--<table tableName="entrust" domainObjectName="Entrust"></table> -->
+		<!--<table tableName="price_snap_agent" domainObjectName="PriceSnapAgent"></table>-->
+		<!--<table tableName="price_snap_sys" domainObjectName="PriceSnapSys"></table>-->
+		<!--<table tableName="orders_pay" domainObjectName="OrdersPay"></table>-->
+		<!--<table tableName="label" domainObjectName="Label"></table>-->
+		<!--<table tableName="orders" domainObjectName="Orders"></table>-->
+		<!--<table tableName="record_wave" domainObjectName="RecordWave"></table>-->
+		<!--<table tableName="news_com" domainObjectName="NewsCom"></table>-->
+		<!--<table tableName="diff_url_mapping" domainObjectName="DiffUrlMapping"></table>-->
+		<!--<table tableName="url_prefix" domainObjectName="UrlPrefix"></table>-->
+		<!--<table tableName="url_resourse" domainObjectName="UrlResourse"></table>-->
+		<!--<table tableName="url_sample" domainObjectName="UrlSample"></table>-->
+		<!--<table tableName="diff_result" domainObjectName="DiffResult"></table>-->
+		<!--<table tableName="diff_url_doc_mapping" domainObjectName="DiffUrlDocMapping"></table>-->
+		<!--<table tableName="diff_url_env_mapping" domainObjectName="DiffUrlEnvMapping"></table>-->
+		<!--<table tableName="news_wave" domainObjectName="NewsWave"></table>-->
+		<!--<table tableName="task_kafka_topic_alarm" domainObjectName="TaskKafkaTopicAlarm"></table>-->
+		<!--<table tableName="user_appeal" domainObjectName="userAppeal"></table>-->
+		<table tableName="check_flow" domainObjectName="CheckFlow"></table>
+		<!--<table tableName="src_dblog" domainObjectName="SrcDblog"></table>-->
+		<!--<table tableName="datax_task" domainObjectName="DataxTask"></table>-->
+		<!--<table tableName="job_inc_config" domainObjectName="JobIncConfig"></table>-->
+		<!--<table tableName="job_info" domainObjectName="JobInfo"></table>-->
+
+
+	</context>
+</generatorConfiguration>
